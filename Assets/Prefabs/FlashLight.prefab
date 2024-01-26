@@ -167,7 +167,7 @@ MonoBehaviour:
   flickerIntensity: 2.78
   flickerPerSecond: 1.31
   speedRandomness: 8.99
-  light: {fileID: 8927127207619842222}
+  _light: {fileID: 8927127207619842222}
 --- !u!1 &8127334758645799946
 GameObject:
   m_ObjectHideFlags: 0

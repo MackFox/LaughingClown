@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class ClownAgent : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private static ClownAgent instance;
+    [SerializeField] private Transform playerCollider;
 
     private NavMeshAgent _agent;
     [SerializeField] private float maxRange = 5;
@@ -17,6 +18,12 @@ public class ClownAgent : MonoBehaviour
         Seeing = 1,
         Following = 2,
         Reached = 3,
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
     }
 
     private void Start()
@@ -31,19 +38,19 @@ public class ClownAgent : MonoBehaviour
 
     private bool CheckInSight()
     {
-        if (Vector3.Distance(transform.position, player.position) < maxRange)
+        if (Vector3.Distance(transform.position, playerCollider.position) < maxRange)
         {
-            if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, maxRange))
+            if (Physics.Raycast(transform.position, (playerCollider.position - transform.position), out hit, maxRange))
             {
                 if (hit.transform.tag == "Player")
                 {
-                    Debug.DrawRay(transform.position, (player.position - transform.position), Color.green);
+                    Debug.DrawRay(transform.position, (playerCollider.position - transform.position), Color.green);
                     return true;
                 }
                 else
                 {
                     //Debug.Log("Hit of: " + hit.transform.tag);
-                    Debug.DrawRay(transform.position, (player.position - transform.position), Color.red);
+                    Debug.DrawRay(transform.position, (playerCollider.position - transform.position), Color.red);
                     return false;
                 }
             }
@@ -63,11 +70,16 @@ public class ClownAgent : MonoBehaviour
         if (follow)
         {
             //Debug.Log("Player in sight, following");
-            _agent.SetDestination(player.position);
+            _agent.SetDestination(playerCollider.position);
         }
         else
         {
             _agent.SetDestination(_agent.transform.position);
         }
+    }
+
+    public ClownAgent GetInstance()
+    {
+        return instance;
     }
 }
