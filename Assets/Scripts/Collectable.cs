@@ -4,23 +4,58 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    private bool isCollected;
-    void Start()
+    [Header("References")]
+    [SerializeField] private Transform _playerHand;
+    [SerializeField] private Transform _item;
+    [SerializeField] private Transform _chestTopPivot;
+    [Header("Settings")]
+    [SerializeField] private float _openingSpeed = 0.1f;
+    [SerializeField] private Vector3 _targetOpenRotationPos;
+
+    private OpeningState _state;
+    private float timer;
+    private Vector3 _defaultRotation;
+
+    private enum OpeningState
     {
-        
+        Closed = 0,
+        Opening = 1,
+        Open = 2,
     }
 
-    private void PlayCollectAnimation()
+    private void Start()
     {
-        Debug.Log("Item is collected, playing Animation");
+        _defaultRotation = _chestTopPivot.eulerAngles;
+    }
+
+    private void Update()
+    {
+        if (_state == OpeningState.Opening)
+        {
+            // Play Opening Animation
+            timer += Time.deltaTime * _openingSpeed;
+            _chestTopPivot.eulerAngles = Vector3.Lerp(_defaultRotation, _targetOpenRotationPos, timer);
+
+            if (timer >= 1f)
+            {
+                _state = OpeningState.Open;
+                SetItemInPlayerHand();
+            }
+        }
+    }
+
+    private void SetItemInPlayerHand()
+    {
+        _item.position = _playerHand.position;
+        _item.rotation = Quaternion.identity;
+        _item.SetParent(_playerHand);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && _state < OpeningState.Opening)
         {
-            isCollected = true;
-            PlayCollectAnimation();
+            _state = OpeningState.Opening;
         }
     }
 }
