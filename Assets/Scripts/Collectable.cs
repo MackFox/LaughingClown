@@ -17,7 +17,7 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Character")
+        if (other.tag == "Player")
         {
             isCollected = true;
             PlayCollectAnimation();
