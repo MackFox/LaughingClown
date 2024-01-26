@@ -7,9 +7,10 @@ public class ClownAgent : MonoBehaviour
 {
     private static ClownAgent instance;
     [SerializeField] private Transform playerCollider;
+    [SerializeField] private float maxRange = 5;
+    [SerializeField] private LayerMask _ignoredLayer;
 
     private NavMeshAgent _agent;
-    [SerializeField] private float maxRange = 5;
     private RaycastHit hit;
 
     public enum EnemyStates
@@ -40,7 +41,7 @@ public class ClownAgent : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, playerCollider.position) < maxRange)
         {
-            if (Physics.Raycast(transform.position, (playerCollider.position - transform.position), out hit, maxRange))
+            if (Physics.Raycast(transform.position, (playerCollider.position - transform.position), out hit, maxRange, ~_ignoredLayer))
             {
                 if (hit.transform.tag == "Player")
                 {
