@@ -10,6 +10,7 @@ public class ClownAgent : MonoBehaviour
     [SerializeField] private float maxRange = 5;
     [SerializeField, Range(0.01f, 0.5f)] float followSpeedAdditive = 0.3f;
     [SerializeField] private LayerMask _ignoredLayer;
+    [SerializeField] private LayerMask _groundLayers;
     [Header("Random Walking Settings")]
     [SerializeField] private float rndDestionationInterval = 5f;
     [SerializeField] private float _rndDestionationRange = 10f;
@@ -154,15 +155,15 @@ public class ClownAgent : MonoBehaviour
         if (_timerRndDestination >= rndDestionationInterval)
         {
             _currentEnemyState = EnemyStates.Searching;
-            _timerRndDestination = 0;
             float z = Random.Range(-_rndDestionationRange, _rndDestionationRange);
             float x = Random.Range(-_rndDestionationRange, _rndDestionationRange);
 
             Vector3 newRndDestination = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
 
-            if (Physics.Raycast(newRndDestination, Vector3.down))
+            if (Physics.Raycast(newRndDestination, Vector3.down, 10000f, _groundLayers))
             {
                 _currentDestination = newRndDestination;
+                _timerRndDestination = 0;
             }
         }
     }

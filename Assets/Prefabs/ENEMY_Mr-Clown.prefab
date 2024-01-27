@@ -282,6 +282,9 @@ MonoBehaviour:
   _ignoredLayer:
     serializedVersion: 2
     m_Bits: 1152
+  _groundLayers:
+    serializedVersion: 2
+    m_Bits: 512
   rndDestionationInterval: 5
   _rndDestionationRange: 15
 --- !u!33 &287796860962493059
