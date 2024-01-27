@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3500154665597217472}
   - component: {fileID: 4387823993370019796}
   - component: {fileID: 3862561839819862238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Nail_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2160946949630974499}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RopeAndAnvil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1143588226020770383}
   - component: {fileID: 2233618314878561209}
   - component: {fileID: 1673215579731970022}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rope_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -280,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 830289923259908313}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,16 +313,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4102781873499873888}
   - component: {fileID: 7172420134745236183}
-  - component: {fileID: 4576382203949705964}
-  - component: {fileID: 649073892928941417}
-  - component: {fileID: 7976190450311399876}
-  m_Layer: 0
+  - component: {fileID: 1919922852072137100}
+  m_Layer: 10
   m_Name: KillTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4102781873499873888
 Transform:
   m_ObjectHideFlags: 0
@@ -332,8 +330,8 @@ Transform:
   m_GameObject: {fileID: 5222316922147153006}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0.09100002, z: -0.71}
-  m_LocalScale: {x: 2.5, y: 0.044717, z: 2.5}
+  m_LocalPosition: {x: 0.034, y: 0.588, z: -0.989}
+  m_LocalScale: {x: 1.925475, y: 0.034440584, z: 1.925475}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3925417867304275215}
@@ -350,58 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4efe342ba94d5804fab548af22680ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!33 &4576382203949705964
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5222316922147153006}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &649073892928941417
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5222316922147153006}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7976190450311399876
-CapsuleCollider:
+--- !u!65 &1919922852072137100
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -418,11 +366,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Size: {x: 0.14, y: 52.44, z: 0.97}
+  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
 --- !u!1 &6935799341291396402
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +382,7 @@ GameObject:
   - component: {fileID: 7129767087717608107}
   - component: {fileID: 733730301570621228}
   - component: {fileID: 1163458317231601457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Anvil_Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -552,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3925417867304275215}
   - component: {fileID: 8043506486994171608}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TrapAssembly
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -732,6 +678,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: nail
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bb9ad894f00641b4eba5f6b4704cc9bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -826,6 +777,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ropeTrapFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 43e602155b37ac5478cdc267170f2a47,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -922,6 +878,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ropeTrapLong
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a9a52bbe8e8dbaf4094f839cc5b1ea68,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1016,6 +977,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ropeTrapAnvil
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 12ace992a54d6284d8284467815885ea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1117,6 +1083,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: anvil
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fe378fd3ea8874143a2e8168c770ce9b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1211,6 +1182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: nail (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bb9ad894f00641b4eba5f6b4704cc9bc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

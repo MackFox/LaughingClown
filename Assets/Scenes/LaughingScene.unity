@@ -3495,7 +3495,7 @@ MonoBehaviour:
   followSpeedAdditive: 0.2
   _ignoredLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   rndDestionationInterval: 5
   _rndDestionationRange: 15
 --- !u!4 &1852618684
