@@ -38,6 +38,7 @@ public class TrapController : MonoBehaviour
     {
         // -1 because we need to ignore the "None" state in the enum
         _trapParts[index - 1].GetComponent<Renderer>().material = _testMaterial;
+        Player.GetInstance().RemoveItemFromPlayerHand();
     }
 
     public static TrapController GetInstance()

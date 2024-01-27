@@ -40,17 +40,9 @@ public class Collectable : MonoBehaviour
             if (timer >= 1f)
             {
                 _state = OpeningState.Open;
-                SetItemInPlayerHand();
+                Player.GetInstance().SetItemInPlayerHand(_item.gameObject, _type);
             }
         }
-    }
-
-    private void SetItemInPlayerHand()
-    {
-        _item.position = _playerHand.position;
-        _item.rotation = Quaternion.identity;
-        _item.SetParent(_playerHand);
-        GameManager.GetInstance().SetCollectable(_type);
     }
 
     private void OnTriggerEnter(Collider other)
