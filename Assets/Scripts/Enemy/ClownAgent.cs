@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,11 +10,17 @@ public class ClownAgent : MonoBehaviour
     [SerializeField] private Transform playerCollider;
     [SerializeField] private float maxRange = 5;
     [SerializeField] private LayerMask _ignoredLayer;
+    [Header("Random Walking Settings")]
+    [SerializeField] private float rndDestionationInterval = 5f;
+    [SerializeField] private float _rndDestionationRange = 10f;
 
     private EnemyStates _currentEnemyState;
     private NavMeshAgent _agent;
     private RaycastHit hit;
     private Vector3 _currentDestination;
+
+    // Random Destination
+    private float _timerRndDestination;
 
     public enum EnemyStates
     {
@@ -43,10 +50,11 @@ public class ClownAgent : MonoBehaviour
         }
         else
         {
+            // Random Searching Mode
             _currentEnemyState = EnemyStates.Searching;
+            SetRandomDestination();
             _agent.SetDestination(_currentDestination);
         }
-
     }
 
     private bool CheckInSight()
@@ -94,6 +102,24 @@ public class ClownAgent : MonoBehaviour
         }
     }
 
+    private void SetRandomDestination()
+    {
+        _timerRndDestination += Time.deltaTime;
+        if (_timerRndDestination >= rndDestionationInterval)
+        {
+            _timerRndDestination = 0;
+            float z = Random.Range(-_rndDestionationRange, _rndDestionationRange);
+            float x = Random.Range(-_rndDestionationRange, _rndDestionationRange);
+
+            Vector3 newRndDestination = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
+
+            if (Physics.Raycast(newRndDestination, Vector3.down))
+            {
+                _currentDestination = newRndDestination;
+            }
+        }
+    }
+
     public void SetNewDestination(Vector3 newDestination)
     {
         _currentDestination = newDestination;
@@ -103,5 +129,10 @@ public class ClownAgent : MonoBehaviour
     public static ClownAgent GetInstance()
     {
         return instance;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, _rndDestionationRange);
     }
 }
