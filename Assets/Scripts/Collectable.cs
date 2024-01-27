@@ -9,6 +9,7 @@ public class Collectable : MonoBehaviour
     [SerializeField] private Transform _item;
     [SerializeField] private Transform _chestTopPivot;
     [Header("Settings")]
+    [SerializeField] private CollectableType _type;
     [SerializeField] private float _openingSpeed = 0.1f;
     [SerializeField] private Vector3 _targetOpenRotationPos;
 
@@ -49,11 +50,12 @@ public class Collectable : MonoBehaviour
         _item.position = _playerHand.position;
         _item.rotation = Quaternion.identity;
         _item.SetParent(_playerHand);
+        GameManager.GetInstance().SetCollectable(_type);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && _state < OpeningState.Opening)
+        if (other.tag == "Player" && _state < OpeningState.Opening && GameManager.GetInstance().CurrentCollectable == CollectableType.None)
         {
             _state = OpeningState.Opening;
         }

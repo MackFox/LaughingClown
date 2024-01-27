@@ -79,7 +79,7 @@ public class ClownAgent : MonoBehaviour
         }
     }
 
-    public ClownAgent GetInstance()
+    public static ClownAgent GetInstance()
     {
         return instance;
     }
