@@ -3492,6 +3492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 1740178847}
   maxRange: 10000
+  followSpeedAdditive: 0.2
   _ignoredLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -3555,7 +3556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1799649376}
-  _defaultWalikingSpeed: 0
 --- !u!1 &1874552343
 GameObject:
   m_ObjectHideFlags: 0

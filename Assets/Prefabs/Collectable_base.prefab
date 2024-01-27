@@ -86,7 +86,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.06, y: 0.745, z: 0.225}
+  m_Extents: {x: 0.06, y: 0.745, z: 0.575}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -270,6 +270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: crateLid
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6bb1d41f95ac2af4e85148966b90ea3f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -344,11 +349,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: crateBox
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee98fa5099a16eb46b0727a58c63a0e6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ee98fa5099a16eb46b0727a58c63a0e6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7396917102503924363}
   m_SourcePrefab: {fileID: 100100000, guid: ee98fa5099a16eb46b0727a58c63a0e6, type: 3}
+--- !u!1 &3837510085769799274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ee98fa5099a16eb46b0727a58c63a0e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4143587388314393403}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7396917102503924363
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3837510085769799274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.010000001, z: 0.010000001}
+  m_Center: {x: 7.833734e-16, y: -8.940697e-11, z: 0.005}
 --- !u!4 &4470460054163291344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee98fa5099a16eb46b0727a58c63a0e6,

@@ -12,7 +12,7 @@ public class ClownAnimator : MonoBehaviour
     private const string Death = "death";
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private float _defaultWalikingSpeed;
+    private float _defaultWalikingSpeed;
 
     private Dictionary<AnimationStates, string> _states = new Dictionary<AnimationStates, string>();
 

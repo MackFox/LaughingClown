@@ -8,6 +8,7 @@ public class ClownAgent : MonoBehaviour
     private static ClownAgent instance;
     [SerializeField] private Transform playerCollider;
     [SerializeField] private float maxRange = 5;
+    [SerializeField, Range(0.01f, 0.5f)] float followSpeedAdditive = 0.3f;
     [SerializeField] private LayerMask _ignoredLayer;
     [Header("Random Walking Settings")]
     [SerializeField] private float rndDestionationInterval = 5f;
@@ -89,7 +90,7 @@ public class ClownAgent : MonoBehaviour
             float remainingDistance = _agent.remainingDistance - _agent.stoppingDistance;
             //Debug.Log("RemainingDistance: " + (remainingDistance);
             float aniSpeedMultiply = Mathf.InverseLerp(10, 1, remainingDistance) * 5;
-            float newAgentSpeed = _agentDefaultSpeed + 0.3f * aniSpeedMultiply;
+            float newAgentSpeed = _agentDefaultSpeed + followSpeedAdditive * aniSpeedMultiply;
 
             ClownAnimator.GetInstance().SetWalkingSpeed(aniSpeedMultiply);
             _agent.speed = newAgentSpeed;
