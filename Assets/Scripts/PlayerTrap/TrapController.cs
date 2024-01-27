@@ -27,7 +27,8 @@ public class TrapController : MonoBehaviour
     private Vector3 _animStartPosition;
 
     private Dictionary<CollectableType, bool> _collectableStatus = new Dictionary<CollectableType, bool>();
-    [SerializeField] bool _trapActivated;
+    [SerializeField] private bool _trapPrepared;
+    [SerializeField] private bool _trapActivated;
 
     private void Awake()
     {
@@ -48,7 +49,7 @@ public class TrapController : MonoBehaviour
     private void Update()
     {
         // Anvil Animation
-        if (_trapActivated && !_animFinished)
+        if (_trapPrepared && !_animFinished)
         {
             _animTimer += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(_animTimer / _animDuration);
@@ -61,6 +62,8 @@ public class TrapController : MonoBehaviour
             if (normalizedTime >= 1.0f)
             {
                 _animFinished = true;
+                _trapActivated = true;
+                _killTrigger.SetActive(true);
                 _animTimer = 0.0f;
             }
         }
@@ -78,8 +81,7 @@ public class TrapController : MonoBehaviour
     private void ActivateTrap()
     {
         Debug.Log("Activation of Trap!");
-        _trapActivated = true;
-        _killTrigger.SetActive(true);
+        _trapPrepared = true;
     }
 
 
