@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 627590729409389267}
   - component: {fileID: 5794149579031882998}
   - component: {fileID: 5480627431579986484}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 280745023444747031}
   - component: {fileID: 7549859951454465458}
   - component: {fileID: 6226543052987651211}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SoundTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: woodenPlank
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c372d1c0469500343b754df118a6c726,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
