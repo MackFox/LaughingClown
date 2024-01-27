@@ -47,7 +47,7 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && _state < OpeningState.Opening && GameManager.GetInstance().CurrentCollectable == CollectableType.None)
+        if (other.tag == "Player" && _state < OpeningState.Opening && Player.GetInstance().CurrentCollectable == CollectableType.None)
         {
             _state = OpeningState.Opening;
         }

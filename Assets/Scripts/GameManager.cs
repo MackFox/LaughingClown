@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private GameState _gameState;
 
     public GameState CurrentGameState => _gameState;
-    public CollectableType CurrentCollectable { get; private set; }
 
     public enum GameState
     {
@@ -32,11 +31,6 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState newGameState)
     {
         _gameState = newGameState;
-    }
-
-    public void SetCollectable(CollectableType collectable)
-    {
-        CurrentCollectable = collectable;
     }
 
     public static GameManager GetInstance()

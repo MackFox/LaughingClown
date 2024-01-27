@@ -36,12 +36,12 @@ public class Player : MonoBehaviour
         _currentItem.transform.position = _playerHand.position;
         _currentItem.transform.rotation = Quaternion.identity;
         _currentItem.transform.SetParent(_playerHand);
-        GameManager.GetInstance().SetCollectable(itemType);
         SetCollectableToPlayer(itemType);
     }
 
     public void RemoveItemFromPlayerHand()
     {
+        CurrentCollectable = CollectableType.None;
         Destroy(_currentItem);
     }
 
