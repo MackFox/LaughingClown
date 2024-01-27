@@ -666,6 +666,7 @@ MonoBehaviour:
   _playerHand: {fileID: 2115054045}
   _item: {fileID: 1161873941}
   _chestTopPivot: {fileID: 1691518155}
+  _type: 1
   _openingSpeed: 0.75
   _targetOpenRotationPos: {x: 0, y: 0, z: -110}
 --- !u!4 &388336100

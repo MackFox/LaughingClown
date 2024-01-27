@@ -10,8 +10,10 @@ public class ClownAgent : MonoBehaviour
     [SerializeField] private float maxRange = 5;
     [SerializeField] private LayerMask _ignoredLayer;
 
+    private EnemyStates _currentEnemyState;
     private NavMeshAgent _agent;
     private RaycastHit hit;
+    private Vector3 _currentDestination;
 
     public enum EnemyStates
     {
@@ -34,7 +36,17 @@ public class ClownAgent : MonoBehaviour
     
     private void Update()
     {
-        FollowPlayer(CheckInSight());
+        if (CheckInSight())
+        {
+            _currentEnemyState = EnemyStates.Seeing;
+            FollowPlayer(true);
+        }
+        else
+        {
+            _currentEnemyState = EnemyStates.Searching;
+            _agent.SetDestination(_currentDestination);
+        }
+
     }
 
     private bool CheckInSight()
@@ -71,12 +83,21 @@ public class ClownAgent : MonoBehaviour
         if (follow)
         {
             //Debug.Log("Player in sight, following");
-            _agent.SetDestination(playerCollider.position);
+            _currentDestination = playerCollider.position;
+            _agent.SetDestination(_currentDestination);
         }
         else
         {
-            _agent.SetDestination(_agent.transform.position);
+            // Currently not used
+            _currentDestination = _agent.transform.position;
+            _agent.SetDestination(_currentDestination);
         }
+    }
+
+    public void SetNewDestination(Vector3 newDestination)
+    {
+        _currentDestination = newDestination;
+        _agent.SetDestination(_currentDestination);
     }
 
     public static ClownAgent GetInstance()
