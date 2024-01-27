@@ -5527,26 +5527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2227445178542546454, guid: da036f80fce06014e91b270e0fb18e82,
-        type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: d5c7d5b863585ce4e87601b54d9c84e6,
-        type: 2}
     - target: {fileID: 4032917021863908409, guid: da036f80fce06014e91b270e0fb18e82,
         type: 3}
       propertyPath: m_Name
       value: Ground_NAV-MESH
-      objectReference: {fileID: 0}
-    - target: {fileID: 5170757825912292558, guid: da036f80fce06014e91b270e0fb18e82,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5170757825912292558, guid: da036f80fce06014e91b270e0fb18e82,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5170757825912292558, guid: da036f80fce06014e91b270e0fb18e82,
         type: 3}

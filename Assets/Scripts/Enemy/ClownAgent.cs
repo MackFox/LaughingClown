@@ -11,9 +11,13 @@ public class ClownAgent : MonoBehaviour
     [SerializeField, Range(0.01f, 0.5f)] float followSpeedAdditive = 0.3f;
     [SerializeField] private LayerMask _ignoredLayer;
     [SerializeField] private LayerMask _groundLayers;
+    [Header("Seeing Settings")]
+    [SerializeField] private float _seeingWaitTime = 3f;
+    private float _seeingTimer;
     [Header("Random Walking Settings")]
     [SerializeField] private float rndDestionationInterval = 5f;
     [SerializeField] private float _rndDestionationRange = 10f;
+
     [Header("Death")]
     [SerializeField, Range(0,1)] private float _deathAniDelay = 0.3f;
 
@@ -39,6 +43,8 @@ public class ClownAgent : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+        _currentDestination = transform.position;
     }
 
     private void Start()
@@ -80,14 +86,44 @@ public class ClownAgent : MonoBehaviour
 
         if (CheckInSight())
         {
+            if (_currentEnemyState == EnemyStates.Following)
+            {
+                FollowPlayer(true);
+                return;
+            }
             _currentEnemyState = EnemyStates.Seeing;
-            FollowPlayer(true);
+            ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Watching);
+
+            // ToDo:
+            // Add Delay before follow
+            // move instant when player leaves sight, or player sees enemy.
+            // longes delay is when u cant see him and he sees you.
+
+            _seeingTimer += Time.deltaTime;
+            _currentDestination = transform.position;
+            _agent.SetDestination(_currentDestination);
+
+            if (_seeingTimer >= _seeingWaitTime)
+            {
+                FollowPlayer(true);
+            }
         }
         else if (_currentEnemyState == EnemyStates.Searching)
         {
             // Random Searching Mode
             SetRandomDestination();
-            _agent.SetDestination(_currentDestination);
+            if (_agent.pathStatus == NavMeshPathStatus.PathInvalid)
+            {
+                _timerRndDestination = rndDestionationInterval;
+                SetRandomDestination();
+            }
+            else
+                _agent.SetDestination(_currentDestination);
+        }
+        else if (_currentEnemyState == EnemyStates.Seeing)
+        {
+            // Enemy has seen Player, but lost sight befor wait time was over, move instant!
+            FollowPlayer(true);
         }
     }
 
@@ -143,6 +179,7 @@ public class ClownAgent : MonoBehaviour
 
     private void FollowPlayer(bool follow)
     {
+        _seeingTimer = 0;
         if (follow)
         {
             _currentEnemyState = EnemyStates.Following;
@@ -167,11 +204,23 @@ public class ClownAgent : MonoBehaviour
             float x = Random.Range(-_rndDestionationRange, _rndDestionationRange);
 
             Vector3 newRndDestination = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
-
-            if (Physics.Raycast(newRndDestination, Vector3.down, 10000f, _groundLayers))
+            RaycastHit rndHit;
+            if (Physics.Raycast(newRndDestination, Vector3.down, out rndHit))
             {
-                _currentDestination = newRndDestination;
-                _timerRndDestination = 0;
+                Debug.Log("RayHit on Layer: " + rndHit.collider.gameObject.layer);
+                NavMeshHit hit;
+                if (!NavMesh.SamplePosition(newRndDestination, out hit, 1.0f, NavMesh.AllAreas))
+                {
+                    Debug.Log("Path not reachable!");
+                    SetRandomDestination();
+                }
+                else
+                {
+                    _currentDestination = newRndDestination;
+                    _timerRndDestination = 0;
+                    _agent.SetDestination(_currentDestination);
+                    Debug.Log("Path is Reachable!");
+                }
             }
         }
     }
