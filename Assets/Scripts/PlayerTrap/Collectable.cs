@@ -26,7 +26,7 @@ public class Collectable : MonoBehaviour
 
     private void Start()
     {
-        _defaultRotation = _chestTopPivot.eulerAngles;
+        _defaultRotation = _chestTopPivot.localEulerAngles;
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class Collectable : MonoBehaviour
         {
             // Play Opening Animation
             timer += Time.deltaTime * _openingSpeed;
-            _chestTopPivot.eulerAngles = Vector3.Lerp(_defaultRotation, _targetOpenRotationPos, timer);
+            _chestTopPivot.localEulerAngles = Vector3.Lerp(_defaultRotation, _targetOpenRotationPos, timer);
 
             if (timer >= 1f)
             {

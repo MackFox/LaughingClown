@@ -599,6 +599,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   _animDuration: 3
   _targetAnvilPosition: {x: 0, y: 6.5, z: -0.99}
+  _targetKillPosition: {x: 0, y: 3.86, z: -0.99}
+  _killAniDuration: 0.25
+  _trapPrepared: 0
   _trapActivated: 0
 --- !u!1001 &2667926091784279006
 PrefabInstance:

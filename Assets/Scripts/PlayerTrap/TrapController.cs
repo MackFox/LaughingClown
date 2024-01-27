@@ -25,6 +25,9 @@ public class TrapController : MonoBehaviour
     private float _animTimer;
     private bool _animFinished;
     private Vector3 _animStartPosition;
+    [Header("Kill Animation")]
+    [SerializeField] private Vector3 _targetKillPosition;
+    [SerializeField] private float _killAniDuration = 1f;
 
     private Dictionary<CollectableType, bool> _collectableStatus = new Dictionary<CollectableType, bool>();
     [SerializeField] private bool _trapPrepared;
@@ -62,10 +65,14 @@ public class TrapController : MonoBehaviour
             if (normalizedTime >= 1.0f)
             {
                 _animFinished = true;
-                _trapActivated = true;
                 _killTrigger.SetActive(true);
                 _animTimer = 0.0f;
             }
+        }
+
+        if (_trapPrepared && _animFinished && _trapActivated)
+        {
+            PlayEnemyKillAnimation();
         }
     }
 
@@ -84,8 +91,13 @@ public class TrapController : MonoBehaviour
         _trapPrepared = true;
     }
 
+    private void SetHoloMaterial()
+    {
+        _anivl.material = _holoMaterial;
+        ropeParts.ForEach(renderer => renderer.material = _holoMaterial);
+        nails.ForEach(renderer => renderer.material = _holoMaterial);
+    }
 
-    // ToDo: add different Triggerboxes with holo Collectables, that invoke this function
     public void AddCollectable(CollectableType newCollectable)
     {
         Debug.Log($"Player has add the {newCollectable} to the Trap!");
@@ -110,11 +122,18 @@ public class TrapController : MonoBehaviour
         CheckIfAllItemAreAssemblied();
     }
 
-    private void SetHoloMaterial()
+    private void PlayEnemyKillAnimation()
     {
-        _anivl.material = _holoMaterial;
-        ropeParts.ForEach(renderer => renderer.material = _holoMaterial);
-        nails.ForEach(renderer => renderer.material = _holoMaterial);
+        _animTimer += Time.deltaTime;
+        float normalizedTime = Mathf.Clamp01(_animTimer / _killAniDuration);
+        Vector3 newPosition = Vector3.Lerp(_targetAnvilPosition, _targetKillPosition, normalizedTime);
+
+        _ropeWithAnvil.localPosition = newPosition;
+    }
+
+    public void TrapActivated()
+    {
+        _trapActivated = true;
     }
 
     bool AllCollecteablesAssembeld()

@@ -9,6 +9,7 @@ public class EnemyKillTrigger : MonoBehaviour
         if(other.gameObject.tag == "Enemy")
         {
             Debug.Log("Clown entered the kill trigger and is now dead!, you win!");
+            TrapController.GetInstance().TrapActivated();
         }
     }
 }
