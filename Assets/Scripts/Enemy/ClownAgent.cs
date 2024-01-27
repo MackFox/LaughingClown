@@ -17,6 +17,7 @@ public class ClownAgent : MonoBehaviour
     private NavMeshAgent _agent;
     private RaycastHit hit;
     private Vector3 _currentDestination;
+    private float _agentDefaultSpeed;
 
     // Random Destination
     private float _timerRndDestination;
@@ -38,6 +39,7 @@ public class ClownAgent : MonoBehaviour
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _agentDefaultSpeed = _agent.speed;
     }
     
     private void Update()
@@ -50,16 +52,13 @@ public class ClownAgent : MonoBehaviour
                 if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                 {
                     ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Idle);
+                    _currentEnemyState = EnemyStates.Searching;
                 }
             }
             else
             {
                 ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Walking);
-
-                // Walking Speed control, ToDo: Only increase walking speed when player destionation is the target.
-                float remainingDistance = _agent.remainingDistance - _agent.stoppingDistance;
-                //Debug.Log("RemainingDistance: " + (remainingDistance);
-                ClownAnimator.GetInstance().SetWalkingSpeed(1 + Mathf.InverseLerp(10, 1, remainingDistance) * 5);
+                DynamicWalkingSpeed();
             }
         }
 
@@ -68,12 +67,33 @@ public class ClownAgent : MonoBehaviour
             _currentEnemyState = EnemyStates.Seeing;
             FollowPlayer(true);
         }
-        else
+        else if(_currentEnemyState == EnemyStates.Searching)
         {
             // Random Searching Mode
-            _currentEnemyState = EnemyStates.Searching;
             SetRandomDestination();
+
             _agent.SetDestination(_currentDestination);
+        }
+    }
+
+    private void DynamicWalkingSpeed()
+    {
+        if (_currentEnemyState == EnemyStates.Following)
+        {
+            // Walking Speed control, ToDo: Only increase walking speed when player destionation is the target.
+            float remainingDistance = _agent.remainingDistance - _agent.stoppingDistance;
+            //Debug.Log("RemainingDistance: " + (remainingDistance);
+            float aniSpeedMultiply = Mathf.InverseLerp(10, 1, remainingDistance) * 5;
+            float newAgentSpeed = _agentDefaultSpeed + 0.3f * aniSpeedMultiply;
+
+            ClownAnimator.GetInstance().SetWalkingSpeed(aniSpeedMultiply);
+            _agent.speed = newAgentSpeed;
+        }
+        else
+        {
+            // Reset Speed to Defaults, because Player is not the Target.
+            _agent.speed = _agentDefaultSpeed;
+            ClownAnimator.GetInstance().SetWalkingSpeed(0);
         }
     }
 
@@ -110,7 +130,7 @@ public class ClownAgent : MonoBehaviour
     {
         if (follow)
         {
-            //Debug.Log("Player in sight, following");
+            _currentEnemyState = EnemyStates.Following;
             _currentDestination = playerCollider.position;
             _agent.SetDestination(_currentDestination);
         }
@@ -127,6 +147,7 @@ public class ClownAgent : MonoBehaviour
         _timerRndDestination += Time.deltaTime;
         if (_timerRndDestination >= rndDestionationInterval)
         {
+            _currentEnemyState = EnemyStates.Searching;
             _timerRndDestination = 0;
             float z = Random.Range(-_rndDestionationRange, _rndDestionationRange);
             float x = Random.Range(-_rndDestionationRange, _rndDestionationRange);
@@ -142,6 +163,7 @@ public class ClownAgent : MonoBehaviour
 
     public void SetNewDestination(Vector3 newDestination)
     {
+        _currentEnemyState = EnemyStates.Following;
         _currentDestination = newDestination;
         _agent.SetDestination(_currentDestination);
     }

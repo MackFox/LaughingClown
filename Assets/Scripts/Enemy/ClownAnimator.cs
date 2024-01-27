@@ -12,6 +12,7 @@ public class ClownAnimator : MonoBehaviour
     private const string Death = "death";
 
     [SerializeField] private Animator _animator;
+    [SerializeField] private float _defaultWalikingSpeed;
 
     private Dictionary<AnimationStates, string> _states = new Dictionary<AnimationStates, string>();
 
@@ -28,6 +29,8 @@ public class ClownAnimator : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+        _defaultWalikingSpeed = _animator.GetFloat(WalkingSpeed);
 
         //_states.Add(AnimationStates.Idle, "");
         _states.Add(AnimationStates.Walking, Walking);
@@ -47,9 +50,9 @@ public class ClownAnimator : MonoBehaviour
         }
     }
 
-    public void SetWalkingSpeed(float newSpeed)
+    public void SetWalkingSpeed(float speedMultiply)
     {
-        _animator.SetFloat(WalkingSpeed, newSpeed);
+        _animator.SetFloat(WalkingSpeed, _defaultWalikingSpeed + speedMultiply);
     }
 
     public static ClownAnimator GetInstance()
