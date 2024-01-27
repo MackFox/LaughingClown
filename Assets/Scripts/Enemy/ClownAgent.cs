@@ -57,7 +57,12 @@ public class ClownAgent : MonoBehaviour
             }
             else
             {
-                ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Walking);
+                if (_currentEnemyState == EnemyStates.Following)
+                    ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Running);
+                else
+                    ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Walking);
+
+                
                 DynamicWalkingSpeed();
             }
         }
