@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,6 +42,27 @@ public class ClownAgent : MonoBehaviour
     
     private void Update()
     {
+        // Check if we've reached the destination
+        if (!_agent.pathPending)
+        {
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
+            {
+                if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
+                {
+                    ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Idle);
+                }
+            }
+            else
+            {
+                ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Walking);
+
+                // Walking Speed control, ToDo: Only increase walking speed when player destionation is the target.
+                float remainingDistance = _agent.remainingDistance - _agent.stoppingDistance;
+                //Debug.Log("RemainingDistance: " + (remainingDistance);
+                ClownAnimator.GetInstance().SetWalkingSpeed(1 + Mathf.InverseLerp(10, 1, remainingDistance) * 5);
+            }
+        }
+
         if (CheckInSight())
         {
             _currentEnemyState = EnemyStates.Seeing;

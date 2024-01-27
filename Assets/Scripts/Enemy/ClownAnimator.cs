@@ -36,11 +36,6 @@ public class ClownAnimator : MonoBehaviour
         //_states.Add(AnimationStates.Death, Death);
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void SetAnimationState(AnimationStates newAnimationState)
     {
         // Iteriere durch die AnimationStates im Dictionary
@@ -50,6 +45,11 @@ public class ClownAnimator : MonoBehaviour
             bool isActive = state.Key == newAnimationState;
             _animator.SetBool(state.Value, isActive);
         }
+    }
+
+    public void SetWalkingSpeed(float newSpeed)
+    {
+        _animator.SetFloat(WalkingSpeed, newSpeed);
     }
 
     public static ClownAnimator GetInstance()
