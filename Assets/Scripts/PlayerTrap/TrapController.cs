@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 
 public class TrapController : MonoBehaviour
 {
-    [Tooltip("Needs correct Order from CollectableType Enum!")]
-    [SerializeField] private List<GameObject> _trapParts;
-    [SerializeField] private Material _testMaterial;
+    [Header("References")]
     [SerializeField] private GameObject _killTrigger;
+    [Tooltip("Needs correct Order from CollectableType Enum!")]
+    [SerializeField] private List<MeshRenderer> ropeParts;
+    [SerializeField] private List<MeshRenderer> nails;
+    [SerializeField] private MeshRenderer _anivl;
+
+    [Header("Materials")]
+    [SerializeField] private Material _holoMaterial;
+    [SerializeField] private Material _nailsMaterial;
+    [SerializeField] private Material _ropesMaterial;
+    [SerializeField] private Material _anvilMaterial;
 
     private static TrapController instance;
     private Dictionary<CollectableType, bool> _collectableStatus = new Dictionary<CollectableType, bool>();
@@ -25,7 +32,7 @@ public class TrapController : MonoBehaviour
 
     private void Start()
     {
-
+        SetHoloMaterial();
     }
 
     private void CheckIfAllItemAreAssemblied()
@@ -49,15 +56,31 @@ public class TrapController : MonoBehaviour
     {
         Debug.Log($"Player has add the {newCollectable} to the Trap!");
         _collectableStatus[newCollectable] = true;
-        ActivateTrapPart((int)newCollectable);
+
+        switch (newCollectable)
+        {
+            case CollectableType.Anvil:
+                _anivl.material = _anvilMaterial;
+                break;
+            case CollectableType.Rope:
+                ropeParts.ForEach(renderer => renderer.material = _ropesMaterial);
+                break;
+            case CollectableType.Nail:
+                nails.ForEach(renderer => renderer.material = _nailsMaterial);
+                break;
+            default:
+                break;
+        }
+
+        Player.GetInstance().RemoveItemFromPlayerHand();
         CheckIfAllItemAreAssemblied();
     }
 
-    private void ActivateTrapPart(int index)
+    private void SetHoloMaterial()
     {
-        // -1 because we need to ignore the "None" state in the enum
-        _trapParts[index - 1].GetComponent<Renderer>().material = _testMaterial;
-        Player.GetInstance().RemoveItemFromPlayerHand();
+        _anivl.material = _holoMaterial;
+        ropeParts.ForEach(renderer => renderer.material = _holoMaterial);
+        nails.ForEach(renderer => renderer.material = _holoMaterial);
     }
 
     bool AllCollecteablesAssembeld()
