@@ -134,6 +134,7 @@ public class TrapController : MonoBehaviour
     public void TrapActivated()
     {
         _trapActivated = true;
+        ClownAgent.GetInstance().MoveToDeathDestination(_killTrigger.transform.position);
     }
 
     bool AllCollecteablesAssembeld()

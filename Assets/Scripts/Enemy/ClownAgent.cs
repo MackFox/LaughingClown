@@ -14,6 +14,8 @@ public class ClownAgent : MonoBehaviour
     [Header("Random Walking Settings")]
     [SerializeField] private float rndDestionationInterval = 5f;
     [SerializeField] private float _rndDestionationRange = 10f;
+    [Header("Death")]
+    [SerializeField, Range(0,1)] private float _deathAniDelay = 0.3f;
 
     private EnemyStates _currentEnemyState;
     private NavMeshAgent _agent;
@@ -30,6 +32,7 @@ public class ClownAgent : MonoBehaviour
         Seeing = 1,
         Following = 2,
         Reached = 3,
+        Death = 4,
     }
 
     private void Awake()
@@ -46,6 +49,12 @@ public class ClownAgent : MonoBehaviour
     
     private void Update()
     {
+        if (_currentEnemyState == EnemyStates.Death)
+        {
+            _agent.SetDestination(_currentDestination);
+            return;
+        }
+
         // Check if we've reached the destination
         if (!_agent.pathPending)
         {
@@ -74,11 +83,10 @@ public class ClownAgent : MonoBehaviour
             _currentEnemyState = EnemyStates.Seeing;
             FollowPlayer(true);
         }
-        else if(_currentEnemyState == EnemyStates.Searching)
+        else if (_currentEnemyState == EnemyStates.Searching)
         {
             // Random Searching Mode
             SetRandomDestination();
-
             _agent.SetDestination(_currentDestination);
         }
     }
@@ -175,6 +183,20 @@ public class ClownAgent : MonoBehaviour
         _agent.SetDestination(_currentDestination);
     }
 
+    public void MoveToDeathDestination(Vector3 deathDestination)
+    {
+        _currentEnemyState = EnemyStates.Death;
+        _currentDestination = deathDestination;
+        _agent.SetDestination(_currentDestination);
+        StartCoroutine(PlayDeathAnimation());
+    }
+
+    private IEnumerator PlayDeathAnimation()
+    {
+        yield return new WaitForSeconds(_deathAniDelay);
+        transform.GetComponent<Transform>().localScale = new Vector3(2f, 0.1f, 1.35f);
+    }
+
     public static ClownAgent GetInstance()
     {
         return instance;
@@ -183,5 +205,6 @@ public class ClownAgent : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, _rndDestionationRange);
+        Gizmos.DrawWireSphere(transform.position, maxRange);
     }
 }
