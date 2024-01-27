@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrapController : MonoBehaviour
 {
+    private static TrapController instance;
     [Header("References")]
     [SerializeField] private GameObject _killTrigger;
     [Tooltip("Needs correct Order from CollectableType Enum!")]
@@ -16,9 +17,17 @@ public class TrapController : MonoBehaviour
     [SerializeField] private Material _nailsMaterial;
     [SerializeField] private Material _ropesMaterial;
     [SerializeField] private Material _anvilMaterial;
+    [Header("Animation")]
+    [SerializeField] private Transform _ropeWithAnvil;
+    [SerializeField] private AnimationCurve _animCurve;
+    [SerializeField] private float _animDuration = 1f;
+    [SerializeField] private Vector3 _targetAnvilPosition;
+    private float _animTimer;
+    private bool _animFinished;
+    private Vector3 _animStartPosition;
 
-    private static TrapController instance;
     private Dictionary<CollectableType, bool> _collectableStatus = new Dictionary<CollectableType, bool>();
+    [SerializeField] bool _trapActivated;
 
     private void Awake()
     {
@@ -28,11 +37,33 @@ public class TrapController : MonoBehaviour
         _collectableStatus.Add(CollectableType.Anvil, false);
         _collectableStatus.Add(CollectableType.Rope, false);
         _collectableStatus.Add(CollectableType.Nail, false);
+        _animStartPosition = _ropeWithAnvil.localPosition;
     }
 
     private void Start()
     {
         SetHoloMaterial();
+    }
+
+    private void Update()
+    {
+        // Anvil Animation
+        if (_trapActivated && !_animFinished)
+        {
+            _animTimer += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(_animTimer / _animDuration);
+            float curveValue = _animCurve.Evaluate(normalizedTime);
+
+            Vector3 newPosition = Vector3.Lerp(_animStartPosition, _targetAnvilPosition, curveValue);
+
+            _ropeWithAnvil.localPosition = newPosition;
+
+            if (normalizedTime >= 1.0f)
+            {
+                _animFinished = true;
+                _animTimer = 0.0f;
+            }
+        }
     }
 
     private void CheckIfAllItemAreAssemblied()
@@ -47,6 +78,7 @@ public class TrapController : MonoBehaviour
     private void ActivateTrap()
     {
         Debug.Log("Activation of Trap!");
+        _trapActivated = true;
         _killTrigger.SetActive(true);
     }
 
