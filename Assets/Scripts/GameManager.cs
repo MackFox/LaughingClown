@@ -64,6 +64,14 @@ public class GameManager : MonoBehaviour
         fadeCanvasGroup.alpha = 0f;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CanvasScript.instance.SetPauseScreen();
+        }
+    }
+
     public void LoadLevel1()
     {
         TransitionToScene(1);
