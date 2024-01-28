@@ -8,6 +8,7 @@ public class Collectable : MonoBehaviour
     [SerializeField] private Transform _playerHand;
     [SerializeField] private Transform _item;
     [SerializeField] private Transform _chestTopPivot;
+    [SerializeField] private AudioClip _sound;
     [Header("Settings")]
     [SerializeField] private CollectableType _type;
     [SerializeField] private float _openingSpeed = 0.1f;
@@ -49,6 +50,7 @@ public class Collectable : MonoBehaviour
     {
         if (other.tag == "Player" && _state < OpeningState.Opening && Player.GetInstance().CurrentCollectable == CollectableType.None)
         {
+            GetComponent<AudioSource>().PlayOneShot(_sound);
             _state = OpeningState.Opening;
         }
     }
