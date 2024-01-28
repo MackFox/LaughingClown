@@ -69,7 +69,9 @@ public class ClownAgent : MonoBehaviour
                 if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f)
                 {
                     ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Idle);
-                    _currentEnemyState = EnemyStates.Searching;
+
+                    if (_currentEnemyState != EnemyStates.Seeing)
+                        _currentEnemyState = EnemyStates.Searching;
                 }
             }
             else
@@ -209,7 +211,7 @@ public class ClownAgent : MonoBehaviour
             {
                 Debug.Log("RayHit on Layer: " + rndHit.collider.gameObject.layer);
                 NavMeshHit hit;
-                if (!NavMesh.SamplePosition(newRndDestination, out hit, 1.0f, NavMesh.AllAreas))
+                if (!NavMesh.SamplePosition(newRndDestination, out hit, 10f, NavMesh.AllAreas))
                 {
                     Debug.Log("Path not reachable!");
                     SetRandomDestination();
