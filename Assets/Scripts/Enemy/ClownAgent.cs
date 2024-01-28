@@ -22,6 +22,7 @@ public class ClownAgent : MonoBehaviour
     [SerializeField, Range(0,1)] private float _deathAniDelay = 0.3f;
 
     private EnemyStates _currentEnemyState;
+    private EnemyStates _lastEnemyState;
     private NavMeshAgent _agent;
     private RaycastHit hit;
     private Vector3 _currentDestination;
@@ -55,6 +56,12 @@ public class ClownAgent : MonoBehaviour
     
     private void Update()
     {
+        if (_lastEnemyState != _currentEnemyState)
+        {
+            _lastEnemyState = _currentEnemyState;
+            ClownSoundManager.GetInstance().PlayLaugh(_currentEnemyState);
+        }
+
         if (_currentEnemyState == EnemyStates.Death)
         {
             _agent.SetDestination(_currentDestination);
@@ -95,6 +102,7 @@ public class ClownAgent : MonoBehaviour
             }
             _currentEnemyState = EnemyStates.Seeing;
             ClownAnimator.GetInstance().SetAnimationState(ClownAnimator.AnimationStates.Watching);
+            //ClownSoundManager.GetInstance().PlayLaugh(_currentEnemyState);
 
             // ToDo:
             // Add Delay before follow
@@ -185,6 +193,7 @@ public class ClownAgent : MonoBehaviour
         if (follow)
         {
             _currentEnemyState = EnemyStates.Following;
+            //ClownSoundManager.GetInstance().PlayLaugh(_currentEnemyState);
             _currentDestination = playerCollider.position;
             _agent.SetDestination(_currentDestination);
         }
@@ -242,6 +251,7 @@ public class ClownAgent : MonoBehaviour
         StartCoroutine(PlayDeathAnimation());
     }
 
+    // Maybe move to CharacterAnimator
     private IEnumerator PlayDeathAnimation()
     {
         yield return new WaitForSeconds(_deathAniDelay);
