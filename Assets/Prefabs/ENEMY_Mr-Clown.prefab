@@ -259,7 +259,7 @@ MonoBehaviour:
   _groundLayers:
     serializedVersion: 2
     m_Bits: 512
-  _seeingWaitTime: 3
+  _seeingWaitTime: 1
   rndDestionationInterval: 5
   _rndDestionationRange: 15
   _deathAniDelay: 0.2
