@@ -76,7 +76,10 @@ public class CanvasScript : MonoBehaviour
     {
         DeactivateAllScreens();
         if (winScreen != null) winScreen.SetActive(true);
+        Player.GetInstance().UnlockCursor(true);
+        Time.timeScale = 0;
     }
+
     public void SetLoseScreen()
     {
         DeactivateAllScreens();
