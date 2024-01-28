@@ -7,25 +7,19 @@ public class ClownSoundManager : MonoBehaviour
 {
     private static ClownSoundManager instance;
 
-    [SerializeField] private AudioSource _laughSource;
-    [SerializeField] private AudioSource _laughSource2;
-    private AudioClip _currentLaughClip;
-    private float _laughDefaultVolume;
     [SerializeField] private AudioSource _movementSource;
     [SerializeField] private float fadeDuration = 1f;
 
-    [SerializeField] private AudioClip _seesYou;
-    [SerializeField] private AudioClip _hearsYou;
-    [SerializeField] private AudioClip _huntsYou;
-    [SerializeField] private AudioClip _heSpawns;
-    [SerializeField] private AudioClip _lastLaugh;
+    [SerializeField] private AudioSource _seesYou;
+    [SerializeField] private AudioSource _hearsYou;
+    [SerializeField] private AudioSource _huntsYou;
+    [SerializeField] private AudioSource _heSpawns;
+    [SerializeField] private AudioSource _lastLaugh;
 
     private void Awake()
     {
         if (instance == null)
             instance = this;
-
-        _laughDefaultVolume = _laughSource.volume;
     }
 
     public void PlayLaugh(EnemyStates enemyState)
@@ -34,96 +28,79 @@ public class ClownSoundManager : MonoBehaviour
         switch (enemyState)
         {
             case EnemyStates.Searching:
-                StartCoroutine(CrossfadeCoroutine(null));
-                //StartCoroutine(FadeAndChangeClip(_laughSource, null, _laughDefaultVolume));
+                PlayLaughSource(null);
                 break;
             case EnemyStates.Seeing:
-                StartCoroutine(CrossfadeCoroutine(_seesYou));
-                //StartCoroutine(FadeAndChangeClip(_laughSource, _seesYou, _laughDefaultVolume));
-                //PlayLaughSource(_seesYou);
+                PlayLaughSource(_seesYou);
                 break;
             case EnemyStates.Following:
-                StartCoroutine(CrossfadeCoroutine(_huntsYou));
-                //StartCoroutine(FadeAndChangeClip(_laughSource, _huntsYou, _laughDefaultVolume));
-                //PlayLaughSource(_huntsYou);
+                PlayLaughSource(_huntsYou);
                 break;
             case EnemyStates.Reached:
-                StartCoroutine(CrossfadeCoroutine(null));
-                //StartCoroutine(FadeAndChangeClip(_laughSource, null, _laughDefaultVolume));
+                PlayLaughSource(null);
                 break;
             case EnemyStates.Death:
-                StartCoroutine(CrossfadeCoroutine(_lastLaugh));
-                //StartCoroutine(FadeAndChangeClip(_laughSource, _lastLaugh, _laughDefaultVolume));
-                //PlayLaughSource(_lastLaugh);
+                PlayLaughSource(_lastLaugh);
                 break;
             default:
                 break;
         }
     }
 
-    IEnumerator FadeAndChangeClip(AudioSource audioSource, AudioClip newClip, float defaultVolume)
+    private void PlayLaughSource(AudioSource newSource)
     {
-        Debug.Log("Player of Sound: " + newClip);
-        // Faden aus
-        while (audioSource.volume > 0)
+        if (newSource != null)
         {
-            audioSource.volume -= defaultVolume * Time.deltaTime / fadeDuration;
-            yield return null;
+            Debug.Log("Player of Sound: " + newSource.name);
+            FadeTargetSourceUp(newSource);
         }
 
-        // Wenn ein neuer Clip vorhanden ist, wechsle zu diesem, sonst spiele den aktuellen Clip weiter
-        if (newClip != null)
-        {
-            audioSource.clip = newClip;
-            _currentLaughClip = newClip;
-            audioSource.Play();
-        }
-        else
-        {
-            audioSource.clip = null;
-            audioSource.Stop();
-        }
-
-        // Faden ein
-        while (audioSource.volume < defaultVolume)
-        {
-            audioSource.volume += defaultVolume * Time.deltaTime / fadeDuration;
-            yield return null;
-        }
+        FadeOtherSourcesDown(newSource);
+        //_laughSource.Play();
     }
 
-    private IEnumerator CrossfadeCoroutine(AudioClip newClip)
+    private void FadeTargetSourceUp(AudioSource targetSource)
     {
-        float timer = 0.0f;
-        float startVolume = _laughSource.volume;
-        float endVolume = 0.0f;
-
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            _laughSource.volume = Mathf.Lerp(startVolume, endVolume, timer / fadeDuration);
-            _laughSource2.volume = Mathf.Lerp(endVolume, startVolume, timer / fadeDuration);
-            yield return null;
-        }
-
-        // Wechsle die Audioquellen
-        AudioSource temp = _laughSource;
-        _laughSource = _laughSource2;
-        _laughSource2 = temp;
+        StartCoroutine(FadeVolumeCoroutine(targetSource, 0.0f, 1.0f, fadeDuration));
 
         // Setze den neuen AudioClip und starte das Abspielen der neuen Audioquelle
-        if (newClip != null)
-        {
-            _laughSource.clip = newClip;
-            _laughSource.Play();
-        }
+        targetSource.Stop();
+        targetSource.clip = targetSource.clip;
+        targetSource.Play();
     }
 
-    private void PlayLaughSource(AudioClip nextClip)
+    private void FadeOtherSourcesDown(AudioSource targetSource)
     {
-        Debug.Log("Player of Sound: " + nextClip);
-        _laughSource.clip = nextClip;
-        _laughSource.Play();
+        if (_seesYou != targetSource)
+            FadeVolume(_seesYou, 0.0f, fadeDuration);
+        if (_hearsYou != targetSource)
+            FadeVolume(_hearsYou, 0.0f, fadeDuration);
+        if (_huntsYou != targetSource)
+            FadeVolume(_huntsYou, 0.0f, fadeDuration);
+        if (_heSpawns != targetSource)
+            FadeVolume(_heSpawns, 0.0f, fadeDuration);
+        if (_lastLaugh != targetSource)
+            FadeVolume(_lastLaugh, 0.0f, fadeDuration);
+    }
+
+    private IEnumerator FadeVolumeCoroutine(AudioSource audioSource, float startVolume, float endVolume, float duration)
+    {
+        float timer = 0.0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, endVolume, timer / duration);
+            yield return null;
+        }
+
+        // Optional: Zurücksetzen der Lautstärke für zukünftige Verwendung
+        audioSource.volume = endVolume;
+    }
+
+    private void FadeVolume(AudioSource audioSource, float targetVolume, float duration)
+    {
+        StartCoroutine(FadeVolumeCoroutine(audioSource, audioSource.volume, targetVolume, duration));
     }
 
     public static ClownSoundManager GetInstance()
