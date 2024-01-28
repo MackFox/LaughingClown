@@ -28,6 +28,12 @@ public class TrapController : MonoBehaviour
     [Header("Kill Animation")]
     [SerializeField] private Vector3 _targetKillPosition;
     [SerializeField] private float _killAniDuration = 1f;
+    [Header("Sound")]
+    [SerializeField] private AudioSource _effectSource;
+    [SerializeField] private AudioClip _ropeSound;
+    [SerializeField] private AudioClip _anvilSound;
+    [SerializeField] private AudioClip _nailSound;
+    [SerializeField] private AudioClip _anvilFalling;
 
     private Dictionary<CollectableType, bool> _collectableStatus = new Dictionary<CollectableType, bool>();
     [SerializeField] private bool _trapPrepared;
@@ -107,12 +113,15 @@ public class TrapController : MonoBehaviour
         {
             case CollectableType.Anvil:
                 _anivl.material = _anvilMaterial;
+                PlaySoundEffect(_anvilSound);
                 break;
             case CollectableType.Rope:
                 ropeParts.ForEach(renderer => renderer.material = _ropesMaterial);
+                PlaySoundEffect(_ropeSound);
                 break;
             case CollectableType.Nail:
                 nails.ForEach(renderer => renderer.material = _nailsMaterial);
+                PlaySoundEffect(_nailSound);
                 break;
             default:
                 break;
@@ -131,10 +140,18 @@ public class TrapController : MonoBehaviour
         _ropeWithAnvil.localPosition = newPosition;
     }
 
+    private void PlaySoundEffect(AudioClip targetClip)
+    {
+        _effectSource.Stop();
+        _effectSource.clip = targetClip;
+        _effectSource.Play();
+    }
+
     public void TrapActivated()
     {
         _trapActivated = true;
         ClownAgent.GetInstance().MoveToDeathDestination(_killTrigger.transform.position);
+        PlaySoundEffect(_anvilFalling);
     }
 
     bool AllCollecteablesAssembeld()
