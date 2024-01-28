@@ -37,4 +37,9 @@ public class GameManager : MonoBehaviour
     {
         return instance;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
