@@ -1034,16 +1034,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3249346029048257259, guid: 03f42739d01af5949b485e3f3f7e4eba,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3249346029048257259, guid: 03f42739d01af5949b485e3f3f7e4eba,
-        type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4898170276266861165, guid: 03f42739d01af5949b485e3f3f7e4eba,
         type: 3}
       propertyPath: m_Name
@@ -1119,6 +1109,11 @@ PrefabInstance:
     - target: {fileID: 2661043287676782, guid: 68ba662369c3b6a41be493d149583607, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ExitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065763899827159189, guid: 68ba662369c3b6a41be493d149583607,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4162080099821230448, guid: 68ba662369c3b6a41be493d149583607,
         type: 3}
@@ -1230,7 +1225,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 820212977}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 510679588895934297, guid: 68ba662369c3b6a41be493d149583607, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

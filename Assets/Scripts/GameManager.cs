@@ -95,6 +95,8 @@ public class GameManager : MonoBehaviour
         _bgmSource.Stop();
         _bgmSource.clip = _bgmGame;
         _bgmSource.Play();
+
+        _audioSource.PlayOneShot(_laughing);
     }
     public void BackToMainMenu()
     {
