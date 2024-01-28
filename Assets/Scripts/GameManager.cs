@@ -9,12 +9,20 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     private GameState _gameState;
 
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource;
     public AudioSource AudioSource => _audioSource;
+
+
+    [SerializeField] private AudioSource _bgmSource;
+    public AudioSource BackgroundMusicSource => _bgmSource;
+
 
     [SerializeField] private AudioClip _laughing;
     [SerializeField] private AudioClip _end;
     [SerializeField] private AudioClip _win;
+
+    [SerializeField] private AudioClip _bgmMenu;
+    [SerializeField] private AudioClip _bgmGame;
 
     public GameState CurrentGameState => _gameState;
 
@@ -29,14 +37,17 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
 
         if (instance == null)
             instance = this;
+        else
+            Destroy(gameObject);
 
+        DontDestroyOnLoad(this);
         SetGameState(GameState.Start);
-        _audioSource = GetComponent<AudioSource>();
     }
+
+
 
     public void SetGameState(GameState newGameState)
     {
@@ -62,12 +73,20 @@ public class GameManager : MonoBehaviour
         fadeCanvasGroup = CanvasScript.instance.fade;
         // Start with the fade canvas fully transparent
         fadeCanvasGroup.alpha = 0f;
+
+        _bgmSource.Stop();
+        _bgmSource.clip = _bgmMenu;
+        _bgmSource.Play();
     }
 
     public void LoadLevel1()
     {
         TransitionToScene(1);
         CanvasScript.instance.DeactivateAllScreens();
+
+        _bgmSource.Stop();
+        _bgmSource.clip = _bgmGame;
+        _bgmSource.Play();
     }
     public void BackToMainMenu()
     {
