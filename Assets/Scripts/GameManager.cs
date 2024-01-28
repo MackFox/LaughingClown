@@ -79,6 +79,14 @@ public class GameManager : MonoBehaviour
         _bgmSource.Play();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CanvasScript.instance.SetPauseScreen();
+        }
+    }
+
     public void LoadLevel1()
     {
         TransitionToScene(1);

@@ -57,8 +57,20 @@ public class CanvasScript : MonoBehaviour
     public void SetPauseScreen()
     {
         DeactivateAllScreens();
-        if (pauseScreen != null) pauseScreen.SetActive(true);
+        if (pauseScreen != null)
+        {
+            pauseScreen.SetActive(true);
+            Player.GetInstance().UnlockCursor(true);
+            Time.timeScale = 0;
+        }
     }
+    public void ResumeGame()
+    {
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1;
+        Player.GetInstance().UnlockCursor(false);
+    }
+
     public void SetWinScreen()
     {
         DeactivateAllScreens();
