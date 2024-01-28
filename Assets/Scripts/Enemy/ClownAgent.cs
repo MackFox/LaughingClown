@@ -256,6 +256,8 @@ public class ClownAgent : MonoBehaviour
     {
         yield return new WaitForSeconds(_deathAniDelay);
         transform.GetComponent<Transform>().localScale = new Vector3(2f, 0.1f, 1.35f);
+        yield return new WaitForSeconds(2f);
+        CanvasScript.instance.SetWinScreen();
     }
 
     public void KillPlayer()
