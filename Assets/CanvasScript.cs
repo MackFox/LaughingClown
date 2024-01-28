@@ -42,6 +42,12 @@ public class CanvasScript : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void BackToMenu()
+    {
+        SetMenuScreen();
+        GameManager.GetInstance().BackToMainMenu();
+    }
+
     // Update is called once per frame
     public void SetMenuScreen()
     {

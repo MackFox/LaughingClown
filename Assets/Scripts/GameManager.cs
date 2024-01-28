@@ -89,6 +89,9 @@ public class GameManager : MonoBehaviour
 
         // Load the new scene
         SceneManager.LoadScene(sceneIndex);
+
+        if (sceneIndex != 0) _gameState = GameState.Playing;
+        else _gameState = GameState.Intro;
     }
 
     IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, float duration)
@@ -105,8 +108,6 @@ public class GameManager : MonoBehaviour
             canvasGroup.alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
             elapsedTime -= Time.deltaTime;
             yield return null;
-
-
         }
         canvasGroup.alpha = 0;
     }
