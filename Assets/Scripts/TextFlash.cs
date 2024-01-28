@@ -14,17 +14,17 @@ public class TextFlash : MonoBehaviour
 
     private void Start()
     {
-        _color = text.color;
-        text = GetComponent<TextMeshProUGUI>();
+        //_color = text.color;
+        //text = GetComponent<TextMeshProUGUI>();
     }
-    void Update()
-    {
-        if (text == null && _speed > 0)
-        {
-            timer += Time.deltaTime * _speed;
-            _color.a = Mathf.Sin(timer);
-            text.color = _color;
-        }
-
-    }
+    //void Update()
+    //{
+    //    if (text == null && _speed > 0)
+    //    {
+    //        timer += Time.deltaTime * _speed;
+    //        _color.a = Mathf.Sin(timer);
+    //        text.color = _color;
+    //    }
+    //
+    //}
 }
