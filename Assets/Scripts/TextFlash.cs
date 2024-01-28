@@ -15,6 +15,7 @@ public class TextFlash : MonoBehaviour
     private void Start()
     {
         _color = text.color;
+        text = GetComponent<TextMeshProUGUI>();
     }
     void Update()
     {
