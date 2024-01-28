@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,26 @@ public class Player : MonoBehaviour
     {
         CurrentCollectable = CollectableType.None;
         Destroy(_currentItem);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Death Behavior
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Clown reached player, your are dead!");
+            ClownAgent.GetInstance().KillPlayer();
+            CanvasScript.instance.SetLoseScreen();
+            GetComponent<FirstPersonController>().enabled = false;
+            UnlockCursor(true);
+        }
+    }
+
+    public void UnlockCursor(bool unlock)
+    {
+        GetComponent<StarterAssetsInputs>().cursorLocked = !unlock;
+        GetComponent<StarterAssetsInputs>().cursorInputForLook = !unlock;
+        GetComponent<StarterAssetsInputs>().SetCursorState(!unlock);
     }
 
     public static Player GetInstance()

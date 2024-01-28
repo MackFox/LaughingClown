@@ -258,6 +258,11 @@ public class ClownAgent : MonoBehaviour
         transform.GetComponent<Transform>().localScale = new Vector3(2f, 0.1f, 1.35f);
     }
 
+    public void KillPlayer()
+    {
+        _currentEnemyState = EnemyStates.Reached;
+    }
+
     public static ClownAgent GetInstance()
     {
         return instance;
