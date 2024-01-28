@@ -19,11 +19,8 @@ public class Player : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-    }
 
-    void Start()
-    {
-        
+        UnlockCursor(false);
     }
 
     private void SetCollectableToPlayer(CollectableType newCollectable)
