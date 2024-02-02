@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "IntroScene")
         {
             CanvasScript.instance.SetPauseScreen();
         }

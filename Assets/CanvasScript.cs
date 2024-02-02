@@ -14,6 +14,7 @@ public class CanvasScript : MonoBehaviour
 
     [SerializeField] private CanvasGroup _fade;
     public CanvasGroup fade => _fade;
+    private bool pauseActive;
 
     public enum CanvasState
     {
@@ -57,6 +58,12 @@ public class CanvasScript : MonoBehaviour
     }
     public void SetPauseScreen()
     {
+        if (pauseActive)
+        {
+            ResumeGame();
+            return;
+        }
+
         DeactivateAllScreens();
         if (pauseScreen != null)
         {
@@ -64,9 +71,11 @@ public class CanvasScript : MonoBehaviour
             Player.GetInstance().UnlockCursor(true);
             Time.timeScale = 0;
         }
+        pauseActive = true;
     }
     public void ResumeGame()
     {
+        pauseActive = false;
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
         Player.GetInstance().UnlockCursor(false);
@@ -84,6 +93,8 @@ public class CanvasScript : MonoBehaviour
     {
         DeactivateAllScreens();
         if (loseScreen != null) loseScreen.SetActive(true);
+        Time.timeScale = 0;
+        Player.GetInstance().UnlockCursor(true);
     }
     public void SetCreditsScreen()
     {

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: END GAME
+  m_text: BACK TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -749,7 +749,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 3650965444546938492}
+  m_TargetGraphic: {fileID: 6421811525050833310}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 428222566, guid: 11cca91dd75a6c647970518b62e80ba4, type: 3}
+  m_Sprite: {fileID: -1345886208, guid: 11cca91dd75a6c647970518b62e80ba4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1418,7 +1418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7817764492270997547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1518,7 +1518,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 116566292297619680}
+  m_TargetGraphic: {fileID: 7486759628537290267}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1546,7 +1546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f31b25acc1748b40bb718605f1b36f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://www.youtube.com/@MaTTTaX
+  url: https://www.instagram.com/rbt._.rbt/
 --- !u!1 &2781183176733336814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,7 +1613,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "THE HAPPY CLOWN ALFONSO\n\nMaximilian Fock - GameDesign, 3D Art, Programming\n\nJens
-    R\xF6sing - AI, Programming, Effects\n\nMark - Music, SoundEffects\n\nRobert
+    R\xF6sing - AI, Programming, Effects\n\nMike - Music, SoundEffects\n\nRobert
     - Music, SoundEffects"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2964,7 +2964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5176538299777170696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3064,7 +3064,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 5305383333794347740}
+  m_TargetGraphic: {fileID: 4474314585853356682}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f31b25acc1748b40bb718605f1b36f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://www.youtube.com/@MaTTTaX
+  url: https://www.instagram.com/jimdelotri/
 --- !u!1 &5729649267254051681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3379,7 +3379,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 94.309235}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 240.687, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1808318885090517697
 CanvasRenderer:
@@ -4171,7 +4171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 428222566, guid: 11cca91dd75a6c647970518b62e80ba4, type: 3}
+  m_Sprite: {fileID: -1345886208, guid: 11cca91dd75a6c647970518b62e80ba4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5024,7 +5024,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 293811860104664462}
+  m_TargetGraphic: {fileID: 8962180913389506856}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

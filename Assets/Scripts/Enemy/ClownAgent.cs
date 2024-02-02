@@ -56,6 +56,12 @@ public class ClownAgent : MonoBehaviour
     
     private void Update()
     {
+        if (_currentEnemyState == EnemyStates.Reached)
+        {
+            ClownSoundManager.GetInstance().PlayLaugh(_currentEnemyState);
+            return;
+        }
+
         if (_lastEnemyState != _currentEnemyState)
         {
             _lastEnemyState = _currentEnemyState;

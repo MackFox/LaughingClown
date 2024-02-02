@@ -50,10 +50,16 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Clown reached player, your are dead!");
             ClownAgent.GetInstance().KillPlayer();
-            CanvasScript.instance.SetLoseScreen();
             GetComponent<FirstPersonController>().enabled = false;
-            UnlockCursor(true);
+            StartCoroutine(LoseScreen());
+            //CanvasScript.instance.SetLoseScreen();
         }
+    }
+
+    private IEnumerator LoseScreen()
+    {
+        yield return new WaitForSeconds(1f);
+        CanvasScript.instance.SetLoseScreen();
     }
 
     public void UnlockCursor(bool unlock)
